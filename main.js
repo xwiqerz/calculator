@@ -1,14 +1,13 @@
-console.log("hej");
-const button = document.querySelectorAll("button");
+const buttons = document.querySelectorAll("button");
 const screen = document.querySelector(".screen");
 
-button.forEach(function (button) {
+buttons.forEach(function (button) {
   button.addEventListener("click", calculator);
 });
 
-function calculator(event) {
+function calculator(button) {
   //nuvarande värde av iklickade knappar
-  const currentButtonValue = event.target.value;
+  const currentButtonValue = button.target.value;
 
   if (currentButtonValue === "=") {
     //kolla om screen inte är tom, kör då calc
@@ -19,6 +18,13 @@ function calculator(event) {
   } else if (currentButtonValue === "C") {
     //cleara displayen
     screen.value = "";
+  } else if (
+    (currentButtonValue === "/" ||
+      currentButtonValue === "*" ||
+      currentButtonValue === "+") &&
+    screen.value === ""
+  ) {
+    return;
   } else {
     screen.value += currentButtonValue;
   }
